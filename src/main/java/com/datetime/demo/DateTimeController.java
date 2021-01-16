@@ -12,8 +12,8 @@ public class DateTimeController {
     }
 
     @RequestMapping(value = "/currentdatetime/greeting", method = RequestMethod.GET)
-    public Greeting currentDateGreeting() {
-        return RestRetriever.getGreeting();
+    public Greeting currentDateGreeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return RestRetriever.getGreeting(name);
     }
 
 
