@@ -1,6 +1,5 @@
 package com.datetime.demo;
 
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,4 +10,11 @@ public class DateTimeController {
     public String currentDate() {
         return java.time.LocalDateTime.now().toString();
     }
+
+    @RequestMapping(value = "/currentdatetime/greeting", method = RequestMethod.GET)
+    public Greeting currentDateGreeting() {
+        return RestRetriever.getGreeting();
+    }
+
+
 }
