@@ -1,7 +1,6 @@
 package com.datetime.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +21,6 @@ public class RestRetriever {
         System.out.println("some.prop injected: " + prop);
         System.out.println("REST address: " + restHostname + ":" + restPort);
 
-//        final String uri = String.format("http://localhost:8082/greeting?name=%s", name);
         final String uri = String.format("http://" + restHostname + ":" + restPort + "/greeting?name=%s", name);
 
         RestTemplate restTemplate = new RestTemplate();

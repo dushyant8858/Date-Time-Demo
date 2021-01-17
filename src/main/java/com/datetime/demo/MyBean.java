@@ -24,9 +24,9 @@ public class MyBean {
         this.restPort = restPort;
 
         System.out.println("\n");
-        System.out.println("================== " + prop + "================== ");
-        System.out.println("================== " + restHostname + "================== ");
-        System.out.println("================== " + restPort + "================== ");
+        System.out.println("================== " + prop + " ================== ");
+        System.out.println("================== " + restHostname + " ================== ");
+        System.out.println("================== " + restPort + " ================== ");
         System.out.println("\n");
     }
 }
