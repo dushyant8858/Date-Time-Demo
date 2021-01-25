@@ -17,4 +17,5 @@ ENV REST_HOSTNAME=${rest_hostname}
 ENV REST_PORT=${rest_port}
 
 COPY --from=builder /home/app/target/demo-0.0.1-SNAPSHOT.jar /usr/local/lib/datetime-demo.jar
-EXPOSE 8083ENTRYPOINT java -Dsome.prop=MyAppIsPassed -Dserver.port=${SERVER_PORT} -Drest.hostname=${REST_HOSTNAME} -Drest.port=${REST_PORT} -jar /usr/local/lib/datetime-demo.jar
+EXPOSE 8083
+ENTRYPOINT java -Dsome.prop=MyAppIsPassed -Dserver.port=${SERVER_PORT} -Drest.hostname=${REST_HOSTNAME} -Drest.port=${REST_PORT} -jar /usr/local/lib/datetime-demo.jar
