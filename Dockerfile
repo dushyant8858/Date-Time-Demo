@@ -35,7 +35,13 @@ ENTRYPOINT java -Dsome.prop=MyAppIsPassed -Dserver.port=${SERVER_PORT} -Drest.ho
 
 # docker build -t datetime:latest --build-arg server_port=8083 --build-arg rest_hostname=greeting --build-arg rest_port=8084 --no-cache .
 # docker stop datetime && docker rm datetime 
-# docker run -itd -p 8083:8083 --name datetime datetime
+# docker run -d -p 8083:8083 --name datetime datetime
 # curl localhost:8083/currentdatetime
+
+
+
+# git add .
+# git commit -m "Added test line in Dockerfile"
+# git push
 
 # # ---------- DD ---------- #
