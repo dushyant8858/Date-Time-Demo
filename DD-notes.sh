@@ -12,7 +12,7 @@ apk add curl
 
 
 git add .
-git commit -m "Added test line in Dockerfile"
+git commit -m "Corrected port"
 git push
 
 # ---------- DD ---------- #
