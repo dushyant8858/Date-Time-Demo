@@ -28,8 +28,14 @@ ENTRYPOINT java -Dsome.prop=MyAppIsPassed -Dserver.port=${SERVER_PORT} -Drest.ho
 # aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 275903738462.dkr.ecr.us-east-1.amazonaws.com/pt-portal
 
 
+
+
+
 # # ---------- DD ---------- #
+
 # docker build -t datetime:latest --build-arg server_port=8083 --build-arg rest_hostname=greeting --build-arg rest_port=8084 --no-cache .
 # docker stop datetime && docker rm datetime 
 # docker run -itd -p 8083:8083 --name datetime datetime
 # curl localhost:8083/currentdatetime
+
+# # ---------- DD ---------- #
