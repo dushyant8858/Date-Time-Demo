@@ -15,7 +15,7 @@ apk add curl
 
 
 git add .
-git commit -m "datetime run on Port 8083"
+git commit -m "Enabled accesslog and tomcat/catalina=DEBUG  "
 git push
 
 # ---------- DD ---------- #
