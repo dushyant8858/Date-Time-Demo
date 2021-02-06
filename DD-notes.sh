@@ -16,6 +16,10 @@ docker exec -it datetime sh
 apk add curl 
 
 
+docker system df
+docker system prune --all
+
+
 git add .
 git commit -m "Corrected rest_hostname"
 git push
