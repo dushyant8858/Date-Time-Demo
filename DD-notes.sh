@@ -2,7 +2,7 @@
 
 docker build -t datetime:latest --build-arg server_port=8083 --build-arg rest_hostname=localhost --build-arg rest_port=8084 --no-cache .
 
-docker build -t datetime:latest --build-arg server_port=8083 --build-arg rest_hostname=localhost --build-arg rest_port=8084 .
+docker build -t datetime:latest --build-arg server_port=8083 --build-arg rest_hostname=$(docker inspect greeting --format '{{.NetworkSettings.IPAddress}}') --build-arg rest_port=8084 .
 docker stop datetime && docker rm datetime 
 docker run -d -p 8083:8083 --name datetime datetime
 
@@ -17,7 +17,7 @@ apk add curl
 
 
 git add .
-git commit -m "Enabled accesslog and tomcat/catalina=DEBUG"
+git commit -m "Corrected rest_hostname"
 git push
 
 # ---------- DD ---------- #
