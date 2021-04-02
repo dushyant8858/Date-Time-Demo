@@ -1,0 +1,73 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+
+  pre_build:
+    commands:
+      - echo Pre-Build started on `date`...
+      # - REPOSITORY_URI=$AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/hello-from-aws-nginx
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 8)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - IMAGE_URI=$REPOSITORY_URI:$IMAGE_TAG
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 821438830100.dkr.ecr.us-east-1.amazonaws.com
+
+  build:
+    commands:
+      - echo Build started on `date`...
+      - echo Building the Docker image...          
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $IMAGE_URI
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:withSDcfn
+
+  post_build:
+    commands:
+      - echo Post-Build completed on `date`...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:withSDcfn
+      - printf '[{"name":"${DateTimeServiceName}","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+
+      - echo CodeBuild completed on `date`
+
+      # - echo Updating the CloudFormation template value "Image" with correct ECR image URL with tag...
+      # - cat CodeDeployBlueGreen.yaml | sed "s|{{ECRREPOplusTAG}}|$ECRREPOplusTAG|" > CodeDeployBlueGreen-final.yaml
+      # - cat CodeDeployBlueGreen-final.yaml | grep -i Image -A 3
+      # - echo Updating CloudFormation template done on `date` !!!...
+
+      # - echo Updating the SSM "hello-from-aws-nginx-imageTag" parameter...
+      # # # - aws ssm put-parameter --name hello-from-aws-nginx-imageTag --value $IMAGE_TAG --type String --overwrite
+      # - aws ssm put-parameter --name hello-from-aws-nginx-imageTag --value $ECRREPOplusTAG --type String --overwrite
+      # - echo Updating SSM imageTag parameter done on `date` !!!...
+
+artifacts:
+    files:
+      - images.json
+
+
+
+
+
+
+        # BuildSpec: |
+        #   version: 0.2
+        #   phases:
+        #     pre_build:
+        #       commands:
+        #         - $(aws ecr get-login --no-include-email)
+        #         - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+        #         - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+        #     build:
+        #       commands:
+        #         # - docker build --tag "$IMAGE_URI" --tag "$REPOSITORY_URI:latest" .
+        #         - docker build --tag "$IMAGE_URI" --tag "$REPOSITORY_URI:latest" --tag "$REPOSITORY_URI:withSDcfn" --build-arg server_port=8083 --build-arg rest_hostname=$DateTimeServiceName.$DateTimeServiceName --build-arg rest_port=8084
+        #     post_build:
+        #       commands:
+        #         - docker push "$IMAGE_URI"
+        #         - printf '[{"name":"${DateTimeServiceName}","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+        #   artifacts:
+        #     files: images.json
+
+
