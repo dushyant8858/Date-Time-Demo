@@ -30,7 +30,6 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:withSDcfn
       - printf '[{"name":"%s","imageUri":"%s"}]' "$DateTimeServiceName" "$IMAGE_URI" > imagedefinitions.json
-      - yum install jq -y
       - echo CodeBuild completed on `date`
 
       # - echo Updating the CloudFormation template value "Image" with correct ECR image URL with tag...
@@ -69,6 +68,19 @@ artifacts:
         #         - printf '[{"name":"${DateTimeServiceName}","imageUri":"%s"}]' "$IMAGE_URI" > images.json
         #   artifacts:
         #     files: images.json
+
+
+        # https://stackoverflow.com/a/61964465/13264302
+            # - apt-get install jq -y
+            # - ContainerName="todo"
+            # - ImageURI=$(cat imageDetail.json | jq -r '.ImageURI')
+            # - printf '[{"name":"CONTAINER_NAME","imageUri":"IMAGE_URI"}]' > imagedefinitions.json
+            # - sed -i -e "s|CONTAINER_NAME|$ContainerName|g" imagedefinitions.json
+            # - sed -i -e "s|IMAGE_URI|$ImageURI|g" imagedefinitions.json
+            # - cat imagedefinitions.json
+
+
+
 
 # DateTimeServiceName=DateTime
 # IMAGE_URI=11111EXAMPLE.dkr.ecr.us-west-2.amazonaws.com/ecs-repo:latest
