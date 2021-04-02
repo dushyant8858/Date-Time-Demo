@@ -29,7 +29,7 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:withSDcfn
-      - printf '[{"name":"${DateTimeServiceName}","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+      - printf '[{"name":"$DateTimeServiceName","imageUri":"%s"}]' "$IMAGE_URI" > images.json
 
       - echo CodeBuild completed on `date`
 
