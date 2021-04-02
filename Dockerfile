@@ -9,7 +9,7 @@ FROM openjdk:8-jdk-alpine as PRODUCTION
 # FROM openjdk:11-jre-slim
 
 ARG server_port=8083
-ARG rest_hostname=Greeting.Greeting
+ARG rest_hostname=greeting.greeting
 ARG rest_port=8084
 
 ENV SERVER_PORT=${server_port}
