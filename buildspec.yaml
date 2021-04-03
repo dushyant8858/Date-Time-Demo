@@ -19,7 +19,7 @@ phases:
     commands:
       - echo Build started on `date`...
       - echo Building the Docker image...          
-      - docker build -t $REPOSITORY_URI:latest --build-arg server_port=$DateTimeContainerPort --build-arg rest_hostname=$DomainGreetingPrivateServiceDiscoveryNamespace.$DateTimeServiceName --build-arg rest_port=$GreetingContainerPort .
+      - docker build -t $REPOSITORY_URI:latest --build-arg server_port=$DateTimeContainerPort --build-arg rest_hostname=$DomainGreetingPrivateServiceDiscoveryNamespace.$GreetingServiceName --build-arg rest_port=$GreetingContainerPort .
       - docker tag $REPOSITORY_URI:latest $IMAGE_URI
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:withSDcfn
 
