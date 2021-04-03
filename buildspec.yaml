@@ -6,7 +6,7 @@ phases:
 
   pre_build:
     commands:
-      - echo Pre-Build started on `date`...
+      - echo Pre-Build started for """""DateTime""""""" on `date`...
       # - REPOSITORY_URI=$AWS_ACCOUNT.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/set-ecs-datetimeecrrepository-*
       # - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)
@@ -29,7 +29,7 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:withSDcfn
-      - printf '[{"name":"%s","imageUri":"%s"}]' "$DateTimeServiceName" "$IMAGE_URI" > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' "$DateTimeServiceName" "$IMAGE_URI" > DateTimeimagedefinitions.json
       - echo CodeBuild completed on `date`
 
       # - echo Updating the CloudFormation template value "Image" with correct ECR image URL with tag...
@@ -44,7 +44,7 @@ phases:
 
 artifacts:
     files:
-      - imagedefinitions.json
+      - DateTimeimagedefinitions.json
 
 
 
