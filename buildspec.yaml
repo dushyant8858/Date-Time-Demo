@@ -30,6 +30,7 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:withSDcfn
       - printf '[{"name":"%s","imageUri":"%s"}]' "$DateTimeServiceName" "$IMAGE_URI" > DateTimeimagedefinitions.json
+      - cat DateTimeimagedefinitions.json
       - echo CodeBuild completed on `date`
 
       # - echo Updating the CloudFormation template value "Image" with correct ECR image URL with tag...
@@ -60,7 +61,7 @@ artifacts:
         #     build:
         #       commands:
         #         # - docker build --tag "$IMAGE_URI" --tag "$REPOSITORY_URI:latest" .
-        #         - docker build --tag "$IMAGE_URI" --tag "$REPOSITORY_URI:latest" --tag "$REPOSITORY_URI:withSDcfn" --build-arg server_port=$DateTimeContainerPort --build-arg rest_hostname=$DateTimeServiceName.$DateTimeServiceName --build-arg rest_port=$GreetingContainerPort
+        #         - docker build --tag "$IMAGE_URI" --tag "$REPOSITORY_URI:latest" --tag "$REPOSITORY_URI:withSDcfn" --build-arg server_port=$DateTimeContainerPort --build-arg rest_hostname=$GreetingServiceName.$GreetingServiceName --build-arg rest_port=$GreetingContainerPort
         #     post_build:
         #       commands:
         #         - docker push "$IMAGE_URI"
